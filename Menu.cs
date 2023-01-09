@@ -16,7 +16,7 @@ namespace Farward___Robin_Lab_3
             {
                 Console.WriteLine("------------------------------------------");
                 Console.WriteLine("Menu:\n1. Employees\n2. Teachers\n3. Students\n4. Add new student \n5. Add Teacher\n6. Main Menu\n7. Quit");
-                //FIX MENU NUMBERS
+
 
                 int choice = int.Parse(Console.ReadLine());
 

@@ -227,7 +227,7 @@ namespace Farward___Robin_Lab_3
                 context.Students.Add(studadd);
                 context.SaveChanges();
 
-                Console.WriteLine($"{studadd.FirstName}, + {studadd.LastName} with ssn: {studadd.Ssn} has been added.");
+                Console.WriteLine($"{studadd.FirstName}, {studadd.LastName} with ssn: {studadd.Ssn} has been added.");
             }
 
 
@@ -253,7 +253,7 @@ namespace Farward___Robin_Lab_3
                 context.Employees.Add(teachadd);
                 context.SaveChanges();
 
-                Console.WriteLine($"{teachadd.FirstName}, + {teachadd.LastName} has been added.");
+                Console.WriteLine($"{teachadd.FirstName}, {teachadd.LastName} has been added.");
             }
 
 
