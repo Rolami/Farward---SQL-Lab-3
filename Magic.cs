@@ -11,7 +11,7 @@ namespace Farward___Robin_Lab_3
     public class Magic
     {
         //EF
-   
+
         public static void PrintStudent()
         {
             using (var context = new FarwardDbContext())
@@ -20,21 +20,20 @@ namespace Farward___Robin_Lab_3
                 PrintCourses();
                 //Console.WriteLine("All");
                 Console.WriteLine("Input the class you want to see student from: ");
-                string CourseChoice = Console.ReadLine();
+                Console.WriteLine("(All is an alternative)");
+                string CourseChoice = Console.ReadLine().ToUpper();
                 var CName = context.Courses;
 
-                var student = from ST in context.Students
-                              join G in context.Grades on ST.StudentId equals G.FkStudentId
-                              join C in context.Courses on G.FkCourseId equals C.CourseId
-                              where C.CourseName == CourseChoice //Kan läsas som variabel
-                              select new
-                              {
-                                  //ST = Student Table
-                                  FirstName = ST.FirstName,
-                                  LastName = ST.LastName,
-                                  CourseName = C.CourseName
-
-                              };
+                var student = (from ST in context.Students
+                               join G in context.Grades on ST.StudentId equals G.FkStudentId
+                               join C in context.Courses on G.FkCourseId equals C.CourseId
+                               where C.CourseName == CourseChoice
+                               select new
+                               {
+                                   FirstName = ST.FirstName,
+                                   LastName = ST.LastName,
+                                   CourseName = C.CourseName
+                               }).Distinct();
 
 
                 Console.WriteLine("Sort by:");
@@ -42,14 +41,14 @@ namespace Farward___Robin_Lab_3
                 Console.WriteLine("2. Last name");
 
                 Console.Write("Enter your choice: ");
-                int choice = int.Parse(Console.ReadLine());
+                int choice = int.Parse(Console.ReadLine().ToUpper());
 
                 Console.WriteLine("Sort order:");
                 Console.WriteLine("1. Ascending");
                 Console.WriteLine("2. Descending");
 
                 Console.Write("Enter your choice: ");
-                int order = int.Parse(Console.ReadLine());
+                int order = int.Parse(Console.ReadLine().ToUpper());
 
 
 
@@ -85,8 +84,9 @@ namespace Farward___Robin_Lab_3
                                 Console.WriteLine("Invalid choice. Using default sorting field.");
                                 break;
                         }
-                    break;
+                        break;
                 }
+                Console.WriteLine("-----------------------------------");
                 foreach (var item in student)
                 {
                     Console.Write($"{item.FirstName}, {item.LastName}\n");
@@ -106,7 +106,7 @@ namespace Farward___Robin_Lab_3
                     }
                 }
 
-                if (CourseChoice == "All")
+                if (CourseChoice == "ALL")
                 {
                     var allstud = from S in context.Students
                                   select new
@@ -157,7 +157,7 @@ namespace Farward___Robin_Lab_3
 
         public static void PrintEmployee()
         {
-            Console.WriteLine("This is a list of all the employees no matter the role");
+            Console.WriteLine("This is a list of all the employees no matter the role\n");
             using (var context = new FarwardDbContext())
             {
                 var teacher = from Emp in context.Employees
@@ -168,18 +168,43 @@ namespace Farward___Robin_Lab_3
                                   FirstName = Emp.FirstName,
                                   LastName = Emp.LastName,
                                   EmployeeRole = Emp.EmployeeRole
+
                               };
 
                 foreach (var item in teacher)
                 {
-                    Console.Write($"{item.FirstName}, {item.LastName}:  {item.EmployeeRole}\n");
+                    Console.Write($"{item.FirstName.PadRight(10)} {item.LastName.PadRight(10)}:  {item.EmployeeRole}\n");
 
 
                 }
 
             }
 
-         }
+        }
+
+        public static void EmployeeCount()
+        {
+            using (var context = new FarwardDbContext())
+            {
+                var Employ = from Emp in context.Employees
+                              group Emp by Emp.EmployeeRole into ER //EmployeeRole
+                              select new
+                              {
+                                  Role = ER.Key,
+                                  Count = ER.Count()
+                              };
+
+                foreach (var item in Employ)
+                {
+                    Console.Write($"{item.Role}: {item.Count} employees\n");
+                }
+            }
+
+
+
+
+
+        }
 
 
         public static void PrintCourses()
@@ -204,7 +229,6 @@ namespace Farward___Robin_Lab_3
 
             }
         }
-
 
         public static void AddStudent()
         {
@@ -258,8 +282,40 @@ namespace Farward___Robin_Lab_3
 
 
 
+
+
         }
 
+        public static void ActiveCourses()
+        {
+            using (var context = new FarwardDbContext())
+            {
+                Console.WriteLine("These are the current Courses: ");
 
+
+                var AC = from C in context.Courses
+
+
+                         where C.IsActive == "Yes"
+                         select new
+                         {
+                             CourseID = C.CourseId,
+                             CourseName = C.CourseName,
+
+
+                         };
+
+                foreach (var item in AC)
+                {
+                    Console.Write($"{item.CourseName}\n");
+
+
+                }
+
+
+
+            }
+
+        }
     }
 }

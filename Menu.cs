@@ -11,11 +11,25 @@ namespace Farward___Robin_Lab_3
     {
         public static void Navigation()
         {
+            string line = "------------------------------------------\n";
+            string Welcome = "\r\n   ▄████████    ▄████████    ▄████████  ▄█     █▄     ▄████████    ▄████████ ████████▄  \r\n  ███    ███   ███    ███   ███    ███ ███     ███   ███    ███   ███    ███ ███   ▀███ \r\n  ███    █▀    ███    ███   ███    ███ ███     ███   ███    ███   ███    ███ ███    ███ \r\n ▄███▄▄▄       ███    ███  ▄███▄▄▄▄██▀ ███     ███   ███    ███  ▄███▄▄▄▄██▀ ███    ███ \r\n▀▀███▀▀▀     ▀███████████ ▀▀███▀▀▀▀▀   ███     ███ ▀███████████ ▀▀███▀▀▀▀▀   ███    ███ \r\n  ███          ███    ███ ▀███████████ ███     ███   ███    ███ ▀███████████ ███    ███ \r\n  ███          ███    ███   ███    ███ ███ ▄█▄ ███   ███    ███   ███    ███ ███   ▄███ \r\n  ███          ███    █▀    ███    ███  ▀███▀███▀    ███    █▀    ███    ███ ████████▀  \r\n                            ███    ███                            ███    ███            \r\n";
+            Console.WriteLine(Welcome);
             Console.WriteLine("Welcome to the Farward database.");
             while (true)
             {
-                Console.WriteLine("------------------------------------------");
-                Console.WriteLine("Menu:\n1. Employees\n2. Teachers\n3. Students\n4. Add new student \n5. Add Teacher\n6. Main Menu\n7. Quit");
+                Console.WriteLine(line);
+                Console.WriteLine("Menu:\n1. Employees\n" +
+                    "2. Teachers\n" +
+                    "3. Students\n" +
+                    "4. Add new student \n" +
+                    "5. Add Teacher\n" +
+                    "6. Main Menu\n" +
+                    "7. List active courses\n" +
+                    "8. Employee count\n" +
+                    "9.Quit");
+
+
+                Console.WriteLine(line);
 
 
                 int choice = int.Parse(Console.ReadLine());
@@ -54,6 +68,16 @@ namespace Farward___Robin_Lab_3
                         }
                     case 7:
                         {
+                            Magic.ActiveCourses();
+                            break;
+                        }
+                    case 8:
+                        {
+                            Magic.EmployeeCount();
+                            break;
+                        }
+                    case 9:
+                        {
                             Console.WriteLine("Thank you.");
                             break;
                         }
@@ -63,7 +87,7 @@ namespace Farward___Robin_Lab_3
                         break;
 
                 }
-                if (choice == 7)
+                if (choice == 9)
                 {
                     Console.WriteLine("Exiting program");
                     break;
